@@ -4,14 +4,12 @@ import time
 from simple_pid import PID
 
 
-leftEncoder = 0
-rightEncoder = 0
+leftEncoder = multiprocessing.Value('i', 0) #makes the values able to be shared between the processes
+rightEncoder = multiprocessing.Value('i', 0) #type int value 0
 
 
-def unoStream():
+def unoStream(leftEncoder, rightEncoder):
     uno = serial.Serial("/dev/ttyACM0",115200,timeout=None) #COM4 for windows
-    global leftEncoder
-    global rightEncoder
 
     time.sleep(1) # wait for the arduino to stop sending the initial garbage data
     while True:
@@ -24,13 +22,13 @@ def unoStream():
         try: #sometimes the arduino sends a blank line, so this is to catch that
             value = int(recieved[1:])
             if recieved[0] == "l":
-                leftEncoder = value
+                leftEncoder.value = value
             elif recieved[0] == "r":
-                rightEncoder = value
+                rightEncoder.value = value
         except:
             print("broke")
 
-        print("left:", leftEncoder, "right:", rightEncoder)
+        print("left:", leftEncoder.value, "right:", rightEncoder.value)
 
 
 
@@ -72,17 +70,17 @@ right_kD = 1
 right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
 
 def goto(leftSetPoint, rightSetPoint):
-    while leftEncoder != leftSetPoint and rightEncoder != rightSetPoint:
+    while leftEncoder.value != leftSetPoint and rightEncoder.value != rightSetPoint:
         left_PID.setpoint = leftSetPoint
         right_PID.setpoint = rightSetPoint
 
-        left_PID_out = left_PID(leftEncoder)
-        right_PID_out = right_PID(rightEncoder)
+        left_PID_out = left_PID(leftEncoder.value)
+        right_PID_out = right_PID(rightEncoder.value)
 
         motorWrite(left_PID_out, right_PID_out)
 
         print("left write:", left_PID_out, "right write:", right_PID_out)
-        print("left think:", leftEncoder, "right think:", rightEncoder)
+        print("left think:", leftEncoder.value, "right think:", rightEncoder.value)
 
         time.sleep(0.1)
 
@@ -94,7 +92,7 @@ def goto(leftSetPoint, rightSetPoint):
 
 if __name__ == '__main__':
 
-    unoStreamProc = multiprocessing.Process(target = unoStream)
+    unoStreamProc = multiprocessing.Process(target = unoStream, args=(leftEncoder,rightEncoder))
 
     unoStreamProc.start()
 
