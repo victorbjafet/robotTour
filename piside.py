@@ -34,8 +34,6 @@ def unoStream(leftEncoder, rightEncoder):
 minSpeed = 150
 
 def motorWrite(lMotor, rMotor):
-    lMotor = int(lMotor)
-    rMotor = int(rMotor)
 
     if lMotor == 0 and rMotor == 0:
         for i in range(10):
@@ -84,8 +82,8 @@ def goto(leftSetPoint, rightSetPoint):
         left_PID.setpoint = leftSetPoint
         right_PID.setpoint = rightSetPoint
 
-        left_PID_out = left_PID(leftEncoder.value)
-        right_PID_out = right_PID(rightEncoder.value)
+        left_PID_out = int(left_PID(leftEncoder.value))
+        right_PID_out = int(right_PID(rightEncoder.value))
 
         motorWrite(-left_PID_out, right_PID_out) #left is flipped for some reason
 
