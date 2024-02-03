@@ -35,14 +35,14 @@ def unoStream(leftEncoder, rightEncoder):
 
 def motorWrite(lMotor, rMotor):
     if lMotor >= 0:
-        lWrite = str(lMotor).rjust(5, "0")
+        lWrite = str(max(lMotor,50)).rjust(5, "0")
     else:
-        lWrite = "-" + str(lMotor)[1:].rjust(4, "0")
+        lWrite = "-" + str(max(lMotor[1:],50)).rjust(4, "0")
 
     if rMotor >= 0:
-        rWrite = str(rMotor).rjust(5, "0")
+        rWrite = str(max(rMotor,50)).rjust(5, "0")
     else:
-        rWrite = "-" + str(rMotor)[1:].rjust(4, "0")
+        rWrite = "-" + str(max(rMotor[1:],50)).rjust(4, "0")
 
     mbot.write(bytearray(lWrite + " " + rWrite, "ascii"))
 
