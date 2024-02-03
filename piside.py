@@ -9,26 +9,29 @@ rightEncoder = multiprocessing.Value('i', 0) #type int value 0
 done = multiprocessing.Value('i', 0) #will terminate the seperate process if the program is done
 
 def unoStream(leftEncoder, rightEncoder):
-    uno = serial.Serial("/dev/ttyACM0",115200,timeout=None) #COM4 for windows
+    try:
+        uno = serial.Serial("/dev/ttyACM0",115200,timeout=None) #COM4 for windows
 
-    time.sleep(1) # wait for the arduino to stop sending the initial garbage data
-    while not done.value:
-        if uno.isOpen() == False:
-            raise Exception("Uno disconnected") # makes sure that the serial is connected
-        
+        time.sleep(1) # wait for the arduino to stop sending the initial garbage data
+        while not done.value:
+            if uno.isOpen() == False:
+                raise Exception("Uno disconnected") # makes sure that the serial is connected
+            
 
 
-        recieved = str(uno.readline())[2:-5]
-        try: #sometimes the arduino sends a blank line, so this is to catch that
-            value = int(recieved[1:])
-            if recieved[0] == "l":
-                leftEncoder.value = value
-            elif recieved[0] == "r":
-                rightEncoder.value = value
-        except:
-            print("broke")
+            recieved = str(uno.readline())[2:-5]
+            try: #sometimes the arduino sends a blank line, so this is to catch that
+                value = int(recieved[1:])
+                if recieved[0] == "l":
+                    leftEncoder.value = value
+                elif recieved[0] == "r":
+                    rightEncoder.value = value
+            except:
+                print("broke")
 
-        print("left:", leftEncoder.value, "right:", rightEncoder.value)
+            print("left:", leftEncoder.value, "right:", rightEncoder.value)
+    except:
+        pass
 
 
 minSpeed = 150
