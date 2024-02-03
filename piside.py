@@ -31,18 +31,18 @@ def unoStream(leftEncoder, rightEncoder):
         print("left:", leftEncoder.value, "right:", rightEncoder.value)
 
 
-
+minSpeed = 150
 
 def motorWrite(lMotor, rMotor):
     if lMotor >= 0:
-        lWrite = str(max(lMotor,50)).rjust(5, "0")
+        lWrite = str(max(lMotor,minSpeed)).rjust(5, "0")
     else:
-        lWrite = "-" + str(max(lMotor[1:],50)).rjust(4, "0")
+        lWrite = "-" + str(max(lMotor[1:],minSpeed)).rjust(4, "0")
 
     if rMotor >= 0:
-        rWrite = str(max(rMotor,50)).rjust(5, "0")
+        rWrite = str(max(rMotor,minSpeed)).rjust(5, "0")
     else:
-        rWrite = "-" + str(max(rMotor[1:],50)).rjust(4, "0")
+        rWrite = "-" + str(max(rMotor[1:],minSpeed)).rjust(4, "0")
 
     mbot.write(bytearray(lWrite + " " + rWrite, "ascii"))
 
