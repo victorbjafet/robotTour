@@ -86,7 +86,7 @@ right_kD = left_kD
 right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-speedLimit, speedLimit))
 
 def goto(leftSetPoint, rightSetPoint):
-    while leftEncoder.value != leftSetPoint and rightEncoder.value != rightSetPoint:
+    while leftEncoder.value != leftSetPoint or rightEncoder.value != rightSetPoint:
         left_PID.setpoint = leftSetPoint
         right_PID.setpoint = rightSetPoint
 
@@ -98,7 +98,7 @@ def goto(leftSetPoint, rightSetPoint):
         print("left write:", left_PID_out, "right write:", right_PID_out)
         # print("left think:", leftEncoder.value, "right think:", rightEncoder.value)
 
-        time.sleep(0.1)
+        # time.sleep(0.1)
 
     motorWrite(0, 0)
     done.value = 1
