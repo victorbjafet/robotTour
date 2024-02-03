@@ -77,13 +77,13 @@ def goto(leftSetPoint, rightSetPoint):
         left_PID_out = left_PID(leftEncoder.value)
         right_PID_out = right_PID(rightEncoder.value)
 
-        motorWrite(-left_PID_out, right_PID_out) #i think the left motor is inverted
+        motorWrite(left_PID_out, right_PID_out)
 
         print("left write:", left_PID_out, "right write:", right_PID_out)
         # print("left think:", leftEncoder.value, "right think:", rightEncoder.value)
 
         time.sleep(0.2)
-        
+
     motorWrite(0, 0)
 
 
