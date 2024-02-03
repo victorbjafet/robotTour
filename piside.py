@@ -9,7 +9,7 @@ rightEncoder = 0
 
 
 def unoStream():
-    uno = serial.Serial("COM4",115200,timeout=None)
+    uno = serial.Serial("/dev/ttyACM0",115200,timeout=None) #COM4 for windows
     global leftEncoder
     global rightEncoder
 
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     unoStreamProc.start()
 
 
-    mbot = serial.Serial("COM6",115200,timeout=None)
+    mbot = serial.Serial("/dev/ttyUSB0",115200,timeout=None) #COM6 for windows
     while True:
         if mbot.isOpen() == False:
             raise Exception("Mbot disconnected") # makes sure that the serial is connected
