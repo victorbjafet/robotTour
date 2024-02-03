@@ -67,7 +67,7 @@ def motorWrite(lMotor, rMotor):
 #180 ticks is one rotation
         
 
-speedLimit = 900
+speedLimit = 600
 
 
 
