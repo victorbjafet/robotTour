@@ -82,7 +82,7 @@ def goto(leftSetPoint, rightSetPoint):
         print("left write:", left_PID_out, "right write:", right_PID_out)
         # print("left think:", leftEncoder.value, "right think:", rightEncoder.value)
 
-        time.sleep(0.1)
+        time.sleep(0.2)
 
 
 
