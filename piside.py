@@ -67,7 +67,6 @@ if __name__ == '__main__':
 
     while start == False:
         recieved = str(mbot.readline())
-        print(recieved)
         if recieved == "b'start\\r\\n'":
             start = True
             print("Starting")
@@ -79,17 +78,17 @@ if __name__ == '__main__':
     # 20.2 cm is the circumference of the wheels
 
 
-    left_kP = 1
-    left_kI = 0
-    left_kD = 0
-    
+    left_kP = 6.5
+    left_kI = 1.8
+    left_kD = 1.3
+
     left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
 
 
 
-    right_kP = 1
-    right_kI = 0
-    right_kD = 0
+    right_kP = 6.5
+    right_kI = 1.8
+    right_kD = 1.3
     
     right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
 
@@ -97,7 +96,6 @@ if __name__ == '__main__':
 
 
     while True:
-        print("pid")
         left_PID.setpoint = -131
         right_PID.setpoint = 131
 
@@ -105,6 +103,8 @@ if __name__ == '__main__':
         right_PID_out = right_PID(rightEncoder)
 
         motorWrite(left_PID_out, right_PID_out)
+
+        print("left write:", left_PID_out, "right write:", right_PID_out)
     
 
         
