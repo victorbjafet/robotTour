@@ -34,7 +34,7 @@ def unoStream(leftEncoder, rightEncoder):
         pass
 
 
-minSpeed = 100
+minSpeed = 50
 
 def motorWrite(lMotor, rMotor):
 
@@ -67,7 +67,7 @@ def motorWrite(lMotor, rMotor):
 #180 ticks is one rotation
         
 
-speedLimit = 200
+speedLimit = 100
 
 
 
