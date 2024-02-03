@@ -63,9 +63,9 @@ left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023
 
 
 
-right_kP = 0.2
+right_kP = 0.5
 right_kI = 0
-right_kD = 0
+right_kD = 0.5
 
 right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
 
@@ -77,7 +77,7 @@ def goto(leftSetPoint, rightSetPoint):
         left_PID_out = left_PID(leftEncoder.value)
         right_PID_out = right_PID(rightEncoder.value)
 
-        motorWrite(-left_PID_out, right_PID_out)
+        motorWrite(-left_PID_out, right_PID_out) #left is flipped for some reason
 
         print("left write:", left_PID_out, "right write:", right_PID_out)
         # print("left think:", leftEncoder.value, "right think:", rightEncoder.value)
