@@ -126,7 +126,9 @@ void loop() {
 
 
   // if (change == 1) {
+  Serial.print("l");
   Serial.println(leftEncoderValue);
+  Serial.print("r");
   Serial.println(rightEncoderValue);
 
   // change = 0;

@@ -19,24 +19,24 @@ def unoStream():
             raise Exception("Uno disconnected") # makes sure that the serial is connected
         
 
-        recieved = str(uno.readline())
-        try: #sometimes the arduino sends a blank line, so this is to catch that
-            leftEncoder = int(recieved[2:-5])
-        except:
-            pass
-            print("broke")
 
-        recieved = str(uno.readline())
+        recieved = str(uno.readline())[2:-5]
         try: #sometimes the arduino sends a blank line, so this is to catch that
-            rightEncoder = int(recieved[2:-5])
+            value = int(recieved[1:])
+            if recieved[0] == "l":
+                leftEncoder = value
+            elif recieved[0] == "r":
+                rightEncoder = value
         except:
-            pass
             print("broke")
 
         print("left:", leftEncoder, "right:", rightEncoder)
 
+        
 
-# def leftMotor
+
+def motorWrite(lMotor, rMotor):
+    mbot.write(bytearray(str(lMotor) + " " + str(rMotor), "ascii"))
 
 
 
@@ -50,19 +50,47 @@ if __name__ == '__main__':
 
 
     mbot = serial.Serial("/dev/ttyUSB0",115200,timeout=None) #COM6 for windows
-    while True:
-        if mbot.isOpen() == False:
-            raise Exception("Mbot disconnected") # makes sure that the serial is connected
-        
-        
-        start = False
 
-        while start == False:
-            recieved = str(mbot.readline())
-            if recieved == "b'start\\r\\n'":
-                start = True
-                print("Starting")
-                
+    
+
+    start = False
+
+    while start == False:
+        recieved = str(mbot.readline())
+        if recieved == "b'start\\r\\n'":
+            start = True
+            print("Starting")
+
+    # 20.2 cm is the circumference of the wheels
+
+
+    left_kP = 0
+    left_kI = 0
+    left_kD = 0
+    
+    left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
+
+
+
+    right_kP = 0
+    right_kI = 0
+    right_kD = 0
+    
+    right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
+
+    while True:
+        left_PID.setpoint = -131
+        right_PID.setpoint = 131
+
+        left_PID_out = left_PID(leftEncoder)
+        right_PID_out = right_PID(rightEncoder)
+
+        motorWrite(left_PID_out, right_PID_out)
+
+        print("left:", left_PID_out, "right:", right_PID_out)
+
+        time.sleep(0.1)
+    
 
         
 
