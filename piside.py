@@ -61,6 +61,10 @@ if __name__ == '__main__':
             start = True
             print("Starting")
 
+    time.sleep(2) # let me take my hand off the robot
+
+    print("started")
+
     # 20.2 cm is the circumference of the wheels
 
 
@@ -86,10 +90,6 @@ if __name__ == '__main__':
         right_PID_out = right_PID(rightEncoder)
 
         motorWrite(left_PID_out, right_PID_out)
-
-        print("left:", left_PID_out, "right:", right_PID_out)
-
-        time.sleep(0.1)
     
 
         
