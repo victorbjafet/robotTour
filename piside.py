@@ -40,13 +40,11 @@ def motorWrite(lMotor, rMotor):
         lWrite = str(lMotor).rjust(5, "0")
     else:
         lWrite = "-" + str(lMotor)[1:].rjust(4, "0")
-    print("lWrite:", lWrite)
 
     if rMotor >= 0:
         rWrite = str(rMotor).rjust(5, "0")
     else:
         rWrite = "-" + str(rMotor)[1:].rjust(4, "0")
-    print("rWrite:", rWrite)
 
     mbot.write(bytearray(lWrite + " " + rWrite, "ascii"))
 
