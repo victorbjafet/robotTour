@@ -21,7 +21,6 @@ def unoStream():
 
 
         recieved = str(uno.readline())[2:-5]
-        print(recieved)
         try: #sometimes the arduino sends a blank line, so this is to catch that
             value = int(recieved[1:])
             if recieved[0] == "l":
