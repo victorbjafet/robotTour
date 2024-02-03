@@ -63,7 +63,7 @@ left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023
 
 
 
-right_kP = 1
+right_kP = 0.2
 right_kI = 0
 right_kD = 0
 
