@@ -58,16 +58,16 @@ def motorWrite(lMotor, rMotor):
 #180 ticks is one rotation
 
 left_kP = 6.5
-left_kI = 1.8
-left_kD = 1.3
+left_kI = 0.1
+left_kD = 0.1
 
 left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
 
 
 
 right_kP = 6.5
-right_kI = 1.8
-right_kD = 1.3
+right_kI = 0.1
+right_kD = 0.1
 
 right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
 
