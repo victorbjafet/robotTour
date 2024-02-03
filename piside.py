@@ -83,6 +83,8 @@ def goto(leftSetPoint, rightSetPoint):
 
         print("left write:", left_PID_out, "right write:", right_PID_out)
 
+        time.sleep(0.1)
+
 
 
 
