@@ -86,6 +86,9 @@ def goto(leftSetPoint, rightSetPoint):
 
     motorWrite(0, 0)
 
+    while True:
+        print("done")
+
 
 
 
