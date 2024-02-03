@@ -38,7 +38,8 @@ def motorWrite(lMotor, rMotor):
     rMotor = int(rMotor)
 
     if lMotor == 0 and rMotor == 0:
-        mbot.write(bytearray("00000 00000", "ascii"))
+        for i in range(10):
+            mbot.write(bytearray("00000 00000", "ascii"))
     else:
         try:
             if lMotor >= 0:
