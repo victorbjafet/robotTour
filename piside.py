@@ -6,13 +6,13 @@ from simple_pid import PID
 
 leftEncoder = multiprocessing.Value('i', 0) #makes the values able to be shared between the processes
 rightEncoder = multiprocessing.Value('i', 0) #type int value 0
-
+done = multiprocessing.Value('i', 0) #will terminate the seperate process if the program is done
 
 def unoStream(leftEncoder, rightEncoder):
     uno = serial.Serial("/dev/ttyACM0",115200,timeout=None) #COM4 for windows
 
     time.sleep(1) # wait for the arduino to stop sending the initial garbage data
-    while True:
+    while not done.value:
         if uno.isOpen() == False:
             raise Exception("Uno disconnected") # makes sure that the serial is connected
         
@@ -85,9 +85,14 @@ def goto(leftSetPoint, rightSetPoint):
         # time.sleep(0.2)
 
     motorWrite(0, 0)
+    done.value = 1
+    print("done")
+    time.sleep(2)
+    motorWrite(0, 0)
+    print("ok actually done")
+        
+        
 
-    while True:
-        print("done")
 
 
 
