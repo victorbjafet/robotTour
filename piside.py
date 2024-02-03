@@ -54,6 +54,9 @@ if __name__ == '__main__':
         if mbot.isOpen() == False:
             raise Exception("Mbot disconnected") # makes sure that the serial is connected
         
+        
+        start = False
+
         while start == False:
             recieved = str(mbot.readline())
             if recieved == "b'start\\r\\n'":
