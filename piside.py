@@ -82,6 +82,7 @@ def goto(leftSetPoint, rightSetPoint):
         motorWrite(left_PID_out, right_PID_out)
 
         print("left write:", left_PID_out, "right write:", right_PID_out)
+        print("left think:", leftEncoder, "right think:", rightEncoder)
 
         time.sleep(0.1)
 
