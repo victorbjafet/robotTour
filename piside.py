@@ -65,12 +65,17 @@ def motorWrite(lMotor, rMotor):
 
 # 20.2 cm is the circumference of the wheels
 #180 ticks is one rotation
+        
 
-left_kP = 1
+speedLimit = 900
+
+
+
+left_kP = 6
 left_kI = 0
 left_kD = 0
 
-left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
+left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-speedLimit, speedLimit))
 
 
 
@@ -78,7 +83,7 @@ right_kP = left_kP
 right_kI = left_kI
 right_kD = left_kD
 
-right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
+right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-speedLimit, speedLimit))
 
 def goto(leftSetPoint, rightSetPoint):
     while leftEncoder.value != leftSetPoint and rightEncoder.value != rightSetPoint:
