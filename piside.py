@@ -36,21 +36,24 @@ minSpeed = 150
 def motorWrite(lMotor, rMotor):
     lMotor = int(lMotor)
     rMotor = int(rMotor)
-    
-    try:
-        if lMotor >= 0:
-            lWrite = str(max(lMotor,minSpeed)).rjust(5, "0")
-        else:
-            lWrite = "-" + str(max(int(str(lMotor)[1:]),minSpeed)).rjust(4, "0")
 
-        if rMotor >= 0:
-            rWrite = str(max(rMotor,minSpeed)).rjust(5, "0")
-        else:
-            rWrite = "-" + str(max(int(str(rMotor)[1:]),minSpeed)).rjust(4, "0")
+    if lMotor == 0 and rMotor == 0:
+        mbot.write(bytearray("00000 00000", "ascii"))
+    else:
+        try:
+            if lMotor >= 0:
+                lWrite = str(max(lMotor,minSpeed)).rjust(5, "0")
+            else:
+                lWrite = "-" + str(max(int(str(lMotor)[1:]),minSpeed)).rjust(4, "0")
 
-        mbot.write(bytearray(lWrite + " " + rWrite, "ascii"))
-    except:
-        pass
+            if rMotor >= 0:
+                rWrite = str(max(rMotor,minSpeed)).rjust(5, "0")
+            else:
+                rWrite = "-" + str(max(int(str(rMotor)[1:]),minSpeed)).rjust(4, "0")
+
+            mbot.write(bytearray(lWrite + " " + rWrite, "ascii"))
+        except:
+            pass
 
 
 
