@@ -36,13 +36,23 @@ def unoStream():
 
 
 def motorWrite(lMotor, rMotor):
-    mbot.write(bytearray(str(lMotor) + " " + str(rMotor), "ascii"))
+    if lMotor >= 0:
+        lWrite = str(lMotor).rjust(5, "0")
+    else:
+        lWrite = "-" + str(lMotor)[1:].rjust(4, "0")
+    print("lWrite:", lWrite)
+
+    if rMotor >= 0:
+        rWrite = str(rMotor).rjust(5, "0")
+    else:
+        rWrite = "-" + str(rMotor)[1:].rjust(4, "0")
+    print("rWrite:", rWrite)
+
+    mbot.write(bytearray(lWrite + " " + rWrite, "ascii"))
 
 
 
 if __name__ == '__main__':
-
-
 
     unoStreamProc = multiprocessing.Process(target = unoStream)
 
@@ -68,7 +78,7 @@ if __name__ == '__main__':
     # 20.2 cm is the circumference of the wheels
 
 
-    left_kP = 0
+    left_kP = 1
     left_kI = 0
     left_kD = 0
     
@@ -76,13 +86,17 @@ if __name__ == '__main__':
 
 
 
-    right_kP = 0
+    right_kP = 1
     right_kI = 0
     right_kD = 0
     
     right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
 
+
+
+
     while True:
+        print("pid")
         left_PID.setpoint = -131
         right_PID.setpoint = 131
 
