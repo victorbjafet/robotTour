@@ -30,7 +30,7 @@ def unoStream():
         except:
             print("broke")
 
-        print("left:", leftEncoder, "right:", rightEncoder)
+        # print("left:", leftEncoder, "right:", rightEncoder)
 
 
 
@@ -67,6 +67,7 @@ if __name__ == '__main__':
 
     while start == False:
         recieved = str(mbot.readline())
+        print(recieved)
         if recieved == "b'start\\r\\n'":
             start = True
             print("Starting")
