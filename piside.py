@@ -57,7 +57,7 @@ def motorWrite(lMotor, rMotor):
 
 left_kP = 0.2
 left_kI = 0
-left_kD = 1
+left_kD = 0
 
 left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
 
@@ -65,7 +65,7 @@ left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023
 
 right_kP = 0.2
 right_kI = 0
-right_kD = 1
+right_kD = 0
 
 right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
 
