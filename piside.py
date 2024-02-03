@@ -39,7 +39,7 @@ minSpeed = 150
 def motorWrite(lMotor, rMotor):
 
     if lMotor == 0 and rMotor == 0:
-        for i in range(10):
+        for i in range(30):
             mbot.write(bytearray("00000 00000", "ascii"))
     else:
         try:
@@ -98,7 +98,7 @@ def goto(leftSetPoint, rightSetPoint):
         print("left write:", left_PID_out, "right write:", right_PID_out)
         # print("left think:", leftEncoder.value, "right think:", rightEncoder.value)
 
-        # time.sleep(0.2)
+        time.sleep(0.1)
 
     motorWrite(0, 0)
     done.value = 1
