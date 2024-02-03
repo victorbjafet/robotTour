@@ -73,7 +73,7 @@ speedLimit = 200
 
 left_kP = 6
 left_kI = 0
-left_kD = 0
+left_kD = 3
 
 left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-speedLimit, speedLimit))
 
