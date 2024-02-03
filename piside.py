@@ -55,9 +55,9 @@ def motorWrite(lMotor, rMotor):
 # 20.2 cm is the circumference of the wheels
 #180 ticks is one rotation
 
-left_kP = 0.2
+right_kP = 0.5
 left_kI = 0
-left_kD = 0
+right_kD = 0.5
 
 left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
 
