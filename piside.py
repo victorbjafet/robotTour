@@ -30,7 +30,7 @@ def unoStream():
         except:
             print("broke")
 
-        # print("left:", leftEncoder, "right:", rightEncoder)
+        print("left:", leftEncoder, "right:", rightEncoder)
 
 
 
