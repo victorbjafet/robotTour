@@ -50,6 +50,45 @@ def motorWrite(lMotor, rMotor):
 
 
 
+
+
+
+
+# 20.2 cm is the circumference of the wheels
+#180 ticks is one rotation
+
+left_kP = 6.5
+left_kI = 1.8
+left_kD = 1.3
+
+left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
+
+
+
+right_kP = 6.5
+right_kI = 1.8
+right_kD = 1.3
+
+right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
+
+def goto(leftSetPoint, rightSetPoint):
+    while leftEncoder != leftSetPoint and rightEncoder != rightSetPoint:
+        left_PID.setpoint = leftSetPoint
+        right_PID.setpoint = rightSetPoint
+
+        left_PID_out = left_PID(leftEncoder)
+        right_PID_out = right_PID(rightEncoder)
+
+        motorWrite(left_PID_out, right_PID_out)
+
+        print("left write:", left_PID_out, "right write:", right_PID_out)
+
+
+
+
+
+
+
 if __name__ == '__main__':
 
     unoStreamProc = multiprocessing.Process(target = unoStream)
@@ -73,37 +112,8 @@ if __name__ == '__main__':
 
     print("started")
 
-    # 20.2 cm is the circumference of the wheels
 
-
-    left_kP = 6.5
-    left_kI = 1.8
-    left_kD = 1.3
-
-    left_PID = PID(left_kP, left_kI, left_kD, setpoint=0, output_limits=(-1023, 1023))
-
-
-
-    right_kP = 6.5
-    right_kI = 1.8
-    right_kD = 1.3
-    
-    right_PID = PID(right_kP, right_kI, right_kD, setpoint=0, output_limits=(-1023, 1023))
-
-
-
-
-    while True:
-        left_PID.setpoint = -131
-        right_PID.setpoint = 131
-
-        left_PID_out = left_PID(leftEncoder)
-        right_PID_out = right_PID(rightEncoder)
-
-        motorWrite(left_PID_out, right_PID_out)
-
-        print("left write:", left_PID_out, "right write:", right_PID_out)
-    
+    goto(-131, 131)
 
         
 
